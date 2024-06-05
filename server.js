@@ -3,16 +3,20 @@ dotenv.config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-// middleware
+const path = require("path");
+
+// Middleware
 const methodOverride = require("method-override");
 const morgan = require("morgan");
-
-// middleware involving the session obj
 const session = require("express-session");
 
 // Routers
 const authCtrl = require("./controllers/auth.js");
 const applicationCtrl = require("./controllers/applications.js");
+
+// Custom Middleware
+const isSignedIn = require("./middleware/pass-user-to-view.js");
+const passUserToView = require("./middleware/pass-user-to-view.js");
 
 // Port
 const port = process.env.PORT ? process.env.PORT : "3000";
@@ -29,10 +33,16 @@ mongoose.connection.on("connected", () => {
 ///////////////////////////
 // Middleware
 ///////////////////////////
-
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 app.use(morgan("dev"));
+
+// Static Files
+// Moved static files middleware to be closer to other app.use calls for organization
+const staticDir = path.join(__dirname, "public");
+app.use(express.static(staticDir));
+
+// Session Middleware
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -40,16 +50,17 @@ app.use(
     saveUninitialized: true,
   })
 );
-const isSignedIn = require("./middleware/pass-user-to-view.js");
-const passUserToView = require("./middleware/pass-user-to-view.js");
-// this middleware makes the logged in user var available globally
+
+// Custom Middleware to make the logged-in user available globally
 app.use(passUserToView);
 
 ///////////////////////////
-// Landing Page
+// Routes
 ///////////////////////////
+
+// Landing Page
 app.get("/", (req, res) => {
-  console.log(req.session)
+  console.log(req.session);
   if (req.session.user) {
     // restful routing to /users/:userId/applications
     res.redirect(`/users/${req.session.user._id}/applications`);
@@ -61,9 +72,7 @@ app.get("/", (req, res) => {
   }
 });
 
-///////////////////////////
 // VIP Lounge
-///////////////////////////
 app.get("/vip-lounge", (req, res) => {
   if (req.session.user) {
     res.send(`Welcome to the party ${req.session.user.username}.`);
@@ -72,9 +81,7 @@ app.get("/vip-lounge", (req, res) => {
   }
 });
 
-///////////////////////////
 // Prefixed Routes
-///////////////////////////
 app.use("/auth", authCtrl);
 app.use("/users/:userId/applications", applicationCtrl);
 

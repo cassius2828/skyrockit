@@ -3,8 +3,13 @@ const router = express.Router();
 
 const UserModel = require("../models/user");
 
-router.get("/", (req, res) => {
-  res.render("applications/index.ejs");
+router.get("/", async (req, res) => {
+    // get the desired user
+  const currentUser = await UserModel.findById(req.session.user._id);
+//   access the applications schema in the desired user
+  const applications = currentUser.applications;
+//   pass this data to our view
+  res.render("applications/index.ejs", { applications });
 });
 
 // get a new applicaiton
@@ -22,7 +27,7 @@ router.post("/", async (req, res) => {
     // push the form data into the array of the embedded schema
 
     currentUser.applications.push(req.body);
-    console.log(currentUser, ' <-- current user info')
+    console.log(currentUser, " <-- current user info");
     // ! we have to tell our db that we changed the obj
     // * await currentUser.save()
     await currentUser.save();
