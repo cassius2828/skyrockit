@@ -1,0 +1,7 @@
+<%- include('../partials/meta.ejs') %>
+<%- include('../partials/_nav.ejs') %>
+<% if (user) { %>
+ <a href="/users/<%= user._id %>/applications/new">Add a new application</a>
+<% } %>
+</body>
+</html>

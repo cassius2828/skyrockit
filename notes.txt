@@ -1,0 +1,21 @@
+///////////////////////////
+ERD (Embedded Relationship Model)
+///////////////////////////
+We can have a user table that will have a property in our model that 
+- embed the application schema into the user schema 
+- make the application schema first then input that as a value to the user schema 
+///////////////////////////
+Planning the Routes 
+///////////////////////////
+
+
+///////////////////////////
+enum
+///////////////////////////
+
+a way to restrict the options available to choose in a schema 
+ex:
+- status: {
+    type: String,
+    enum: ['option 1','option 2','option 3','option 4','option 5', ]
+}
