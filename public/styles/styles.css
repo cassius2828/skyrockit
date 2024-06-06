@@ -79,14 +79,15 @@ nav ul {
 
 /* Application Container Styles */
 
-.applications-container{
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
+.applications-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 .app-container {
   width: 20rem;
-  margin: 8rem auto 2rem auto;
+
+  margin: 8rem 2rem 2rem 2rem;
   border: 1px solid #ccc;
   padding: 10px;
 }
@@ -106,7 +107,6 @@ nav ul {
   font-size: 1.25rem;
 }
 
-
 /* buttons and butotn contianer */
 
 .btn-container {
@@ -117,15 +117,15 @@ nav ul {
 
 .btn {
   position: relative;
-  border: solid 1px #f2f2f2;;
+  border: solid 1px #f2f2f2;
   background-color: #f2f2f2;
   color: rgb(66, 91, 130);
   padding: 5px;
-border-radius: 4px;
-cursor: pointer;
-transition: .2s all ease;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.2s all ease;
 }
 
 .btn:hover {
-transform: translateY(-5%);
+  transform: translateY(-5%);
 }
