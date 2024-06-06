@@ -1,0 +1,33 @@
+<%- include('../partials/meta.ejs') %>
+<%- include('../partials/_nav.ejs') %>
+<h1>Add a new app</h1>
+<% if (user) { %>
+ <form action="/users/<%= user._id %>/applications/<%= app._id %>/edit?_method=PUT" id="jobApplicationForm" method="POST">
+    <label for="title">Title:</label>
+    <input id="title" name="title" type="text" value="<%= app.title %>" required/><br><br>
+    
+    <label for="company">Company:</label>
+    <input id="company" name="company" type="text" value="<%= app.company %>" required/><br><br>
+
+    <label for="notes">Notes:</label>
+    <textarea id="notes" name="notes" value="<%= app.notes%>"><%= app.notes%></textarea><br><br>
+    
+    <label for="postingLink">Posting Link:</label>
+    <input id="postingLink" name="postingLink" type="url" value="<%= app.postingLink %>"/><br><br>
+    
+    <label for="status">Status:</label>
+    <select id="status" name="status" value="<%= app.status %>">
+        <option value="interested">Interested</option>
+        <option value="applied">Applied</option>
+        <option value="interviewing">Interviewing</option>
+        <option value="rejected">Rejected</option>
+        <option value="accepted">Accepted</option>
+    </select><br><br>
+    
+    <button type="submit">Update</button>
+</form>
+<% } %>
+
+
+    </body>
+</html>

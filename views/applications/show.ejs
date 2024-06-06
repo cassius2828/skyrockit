@@ -10,7 +10,7 @@
                 <li><span>Posting Link:</span> <%= app?.postingLink %></li>
                 <li><span>Status:</span> <%= app?.status %></li>                    
              <div class="btn-container">
-                 <a class="btn" href="/users/:userId/applications/:applicationId/edit">edit</a>
+                 <a class="btn" href="/users/<%= user._id %>/applications/<%= app._id %>/edit">edit</a>
                  <form action="/users/<%= user._id %>/applications/<%= app._id %>?_method=DELETE" method="POST">
                     <button class="btn" type="submit">Delete</button>
                  </form>
