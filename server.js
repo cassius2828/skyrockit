@@ -19,7 +19,7 @@ const isSignedIn = require("./middleware/pass-user-to-view.js");
 const passUserToView = require("./middleware/pass-user-to-view.js");
 
 // Port
-const port = process.env.PORT ? process.env.PORT : "3000";
+const port = process.env.PORT ? process.env.PORT : 3000;
 
 ///////////////////////////
 // Connect to MongoDB
@@ -30,12 +30,13 @@ mongoose.connection.on("connected", () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
 
+
 ///////////////////////////
 // Middleware
 ///////////////////////////
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
-// app.use(morgan("dev"));
+app.use(morgan("dev"));
 
 // Static Files
 // Moved static files middleware to be closer to other app.use calls for organization
@@ -53,6 +54,7 @@ app.use(
 
 // Custom Middleware to make the logged-in user available globally
 app.use(passUserToView);
+
 
 ///////////////////////////
 // Routes
@@ -83,6 +85,9 @@ app.get("/vip-lounge", (req, res) => {
 
 // Prefixed Routes
 app.use("/auth", authCtrl);
+// Custom middleware to redirect non-signed in users to the sign in page
+// * put this in front of routes you want to protect
+app.use(isSignedIn);
 app.use("/users/:userId/applications", applicationCtrl);
 
 ///////////////////////////

@@ -9,7 +9,13 @@
                 <li><span>Notes:</span> <%= app?.notes %></li>
                 <li><span>Posting Link:</span> <%= app?.postingLink %></li>
                 <li><span>Status:</span> <%= app?.status %></li>                    
-        </div>
+             <div class="btn-container">
+                 <a class="btn" href="/users/:userId/applications/:applicationId/edit">edit</a>
+                 <form action="/users/<%= user._id %>/applications/<%= app._id %>?_method=DELETE" method="POST">
+                    <button class="btn" type="submit">Delete</button>
+                 </form>
+             </div>  
+        </div>  
     </div>
 </div>
 <% } %>

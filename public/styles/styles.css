@@ -105,3 +105,27 @@ nav ul {
   color: rgb(118, 162, 233);
   font-size: 1.25rem;
 }
+
+
+/* buttons and butotn contianer */
+
+.btn-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.btn {
+  position: relative;
+  border: solid 1px #f2f2f2;;
+  background-color: #f2f2f2;
+  color: rgb(66, 91, 130);
+  padding: 5px;
+border-radius: 4px;
+cursor: pointer;
+transition: .2s all ease;
+}
+
+.btn:hover {
+transform: translateY(-5%);
+}

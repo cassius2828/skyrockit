@@ -42,11 +42,31 @@ router.get("/new", (req, res) => {
 // */user/:userId/applications/:applicationId -- the full route
 router.get("/:applicationId", async (req, res) => {
   // get the desired user
+  const currentUser = await UserModel.findById(req.session.user?._id);
+  //   access the applications schema in the desired user
+  const app = currentUser?.applications.id(req.params.applicationId);
+  //   pass this data to our view
+  res.render("applications/show.ejs", { app });
+});
+
+// delete specific application
+router.delete("/:applicationId", async (req, res) => {
+  try {
+     // get the desired user
   const currentUser = await UserModel.findById(req.session.user._id);
   //   access the applications schema in the desired user
   const app = currentUser.applications.id(req.params.applicationId);
-  //   pass this data to our view
-  res.render("applications/show.ejs", { app });
+  // delete app
+  app.deleteOne();
+  // save changes to currentUser
+  await currentUser.save();
+  res.redirect('/');
+  } catch (error) {
+    console.log(`Error deleting path: ${error}`)
+    res.redirect('/:applicationId')
+  }
+ 
+
 });
 
 module.exports = router;
