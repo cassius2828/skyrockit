@@ -1,24 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
     <%- include('../partials/meta.ejs') %>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
     <%- include('../partials/_nav.ejs') %>
     <% if (user) { %>
     <div class="container">
         <a href="/users/<%= user._id %>/applications/new" class="btn">Add a new application</a>
         <div class="applications-container">
-            <% applications.map((app,idx) => { %>
+            <% applications?.map((app,idx) => { %>
             <div class="app-container">
+                <a href="/users/<%= user._id %>/applications/<%= app._id %>"> view application detials</a>
                 <ul>
                     <h3>Job Application <%= idx + 1 %></h3>
-                    <li>Company: <%= app.company %></li>
-                    <li>Title: <%= app.title %></li>
-                    <li>Notes: <%= app.notes %></li>
-                    <li>Posting Link: <%= app.postingLink %></li>
-                    <li>Status: <%= app.status %></li>
+                    <li><span>Company:</span> <%= app.company %></li>
+                    <li><span>Title:</span> <%= app.title %></li>
+                    <li><span>Notes:</span> <%= app.notes %></li>
+                    <li><span>Posting Link:</span> <%= app.postingLink %></li>
+                    <li><span>Status:</span> <%= app.status %></li>                    
                 </ul>
             </div>
             <% }) %>

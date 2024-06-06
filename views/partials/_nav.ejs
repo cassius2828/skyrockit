@@ -3,8 +3,10 @@
   <ul>
     <% if (user) { %>
     <li>
-      <a href="/users/<%= user._id %>/applications/new"> Your Apps</a>
-    </li>
+      <a href="/users/<%= user._id %>/applications"> Your Apps</a>
+    </li><li>
+        <a href="/users/<%= user._id %>/applications/new"> New App</a>
+      </li>
     <li>
       <a href="/auth/sign-out">logout</a>
     </li>

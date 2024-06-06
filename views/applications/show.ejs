@@ -1,0 +1,17 @@
+<%- include('../partials/meta.ejs') %>
+<%- include('../partials/_nav.ejs') %>
+<% if (user) { %>
+<div class="container">
+    <div class="applications-container">
+        <div class="app-container">
+                <li><span>Company:</span> <%= app?.company %></li>
+                <li><span>Title:</span> <%= app?.title %></li>
+                <li><span>Notes:</span> <%= app?.notes %></li>
+                <li><span>Posting Link:</span> <%= app?.postingLink %></li>
+                <li><span>Status:</span> <%= app?.status %></li>                    
+        </div>
+    </div>
+</div>
+<% } %>
+</body>
+</html>

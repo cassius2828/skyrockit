@@ -35,7 +35,7 @@ mongoose.connection.on("connected", () => {
 ///////////////////////////
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
 
 // Static Files
 // Moved static files middleware to be closer to other app.use calls for organization
