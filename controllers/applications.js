@@ -3,16 +3,22 @@ const router = express.Router();
 
 const UserModel = require("../models/user");
 
+///////////////////////////
+// Get all applications
+///////////////////////////
 router.get("/", async (req, res) => {
   // get the desired user
   const currentUser = await UserModel.findById(req.session.user?._id);
-  //   access the applications schema in the desired user
+  // access the applications schema in the desired user
   const applications = currentUser.applications;
-  //   pass this data to our view
+  // pass this data to our view
   res.render("applications/index.ejs", { applications });
 });
 
+///////////////////////////
+// Post new application
 // */user/:userId/applications -- the full route
+///////////////////////////
 router.post("/", async (req, res) => {
   try {
     console.log(req.body);
@@ -32,24 +38,30 @@ router.post("/", async (req, res) => {
   }
 });
 
-// get a new applicaiton
+///////////////////////////
+// Get new application form
 // */user/:userId/applications/new -- the full route
+///////////////////////////
 router.get("/new", (req, res) => {
   res.render("applications/new.ejs");
 });
 
-// get specific application
+///////////////////////////
+// Get specific application
 // */user/:userId/applications/:applicationId -- the full route
+///////////////////////////
 router.get("/:applicationId", async (req, res) => {
   // get the desired user
   const currentUser = await UserModel.findById(req.session.user?._id);
-  //   access the applications schema in the desired user
+  // access the applications schema in the desired user
   const app = currentUser?.applications.id(req.params.applicationId);
-  //   pass this data to our view
+  // pass this data to our view
   res.render("applications/show.ejs", { app });
 });
 
-// get the update form
+///////////////////////////
+// Get the update form
+///////////////////////////
 router.get("/:applicationId/edit", async (req, res) => {
   // find user
   const currentUser = await UserModel.findById(req.session.user?._id);
@@ -60,10 +72,12 @@ router.get("/:applicationId/edit", async (req, res) => {
   res.render("applications/edit.ejs", { app });
 });
 
-// update form
+///////////////////////////
+// Update application
+///////////////////////////
 router.put("/:applicationId/edit", async (req, res) => {
   try {
-    //  return  res.send('working')
+    // return res.send('working')
     // find user
     const currentUser = await UserModel.findById(req.session.user?._id);
     // get app
@@ -71,23 +85,24 @@ router.put("/:applicationId/edit", async (req, res) => {
     // show app
     // update app
     app.set(req.body);
-    console.log(req.body, " <-- reqbody");
-    console.log(app, " <-- updated application");
     // save changes to currentUser
     await currentUser.save();
+    // redirect to show all applications
     return res.redirect("/");
   } catch (error) {
-    console.log(`Error occured in update: ${error}`);
+    console.log(`Error occurred in update: ${error}`);
     return res.redirect("/");
   }
 });
 
-// delete specific application
+///////////////////////////
+// Delete specific application
+///////////////////////////
 router.delete("/:applicationId", async (req, res) => {
   try {
     // get the desired user
     const currentUser = await UserModel.findById(req.session.user?._id);
-    //   access the applications schema in the desired user
+    // access the applications schema in the desired user
     const app = currentUser.applications.id(req.params.applicationId);
     // delete app
     app.deleteOne();
