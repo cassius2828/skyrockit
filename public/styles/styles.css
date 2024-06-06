@@ -83,10 +83,10 @@ nav ul {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .app-container {
   width: 20rem;
-
   margin: 8rem 2rem 2rem 2rem;
   border: 1px solid #ccc;
   padding: 10px;
